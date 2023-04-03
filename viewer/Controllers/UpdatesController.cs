@@ -61,6 +61,8 @@ namespace viewer.Controllers
         [HttpPost]
         public async Task<IActionResult> Post()
         {
+            System.IO.File.WriteAllText("c:/home/Logfiles/00-header.txt", sb.ToString());
+        
             using (var reader = new StreamReader(Request.Body, Encoding.UTF8))
             {
                 var jsonContent = await reader.ReadToEndAsync();
@@ -138,6 +140,8 @@ namespace viewer.Controllers
         {
             var details = JsonConvert.DeserializeObject<CloudEvent<dynamic>>(jsonContent);
             var eventData = JObject.Parse(jsonContent);
+
+            System.IO.File.WriteAllText("c:/home/Logfiles/00-body.txt", jsonContent);
 
             await this._hubContext.Clients.All.SendAsync(
                 "gridupdate",
