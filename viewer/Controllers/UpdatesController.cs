@@ -152,6 +152,9 @@ namespace viewer.Controllers
                 eventData.ToString()
             );
 
+            if (details.eventoData.ToString() == "forbid")
+                return StatusCode(403);
+                
             return Ok();
         }
 
